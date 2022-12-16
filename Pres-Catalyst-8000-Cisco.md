@@ -58,9 +58,9 @@ Quand vous vous connectez via le port console, vous êtes sous NFVIS (user **adm
 
 ![bg opacity](images/gradient.jpg)
 
-# Interface WEB de NFVIS.
+###### Interface WEB de NFVIS.
 
-![width:1000px height:600px ](images/nfvis-web-interface.png)
+![width:1100px height:600px ](images/nfvis-web-interface.png)
 
 ---
 
@@ -77,7 +77,7 @@ Quand vous vous connectez via le port console, vous êtes sous NFVIS (user **adm
 
 ![bg opacity](images/gradient.jpg)
 
-# Le réseau et le C8200
+###### Le réseau et le C8200
 
 ![width:1000px height:600px ](images/NFVIS-RESEAU.png)
 
@@ -91,7 +91,7 @@ Quand vous vous connectez via le port console, vous êtes sous NFVIS (user **adm
 # C8200
 
 - On définit des réseaux (wan-net, lan-net,mgmt-net...).
-- Les réseaux sont reliés à des bridge (wan-br, lan-br,mgmt-br..).
+- Les réseaux sont reliés à des bridges (wan-br, lan-br,mgmt-br..).
 - Les bridges sont reliés aux cartes réseaux physiques qui génèrent les "cartes SRIOV" auxquelles les VM peuvent se connecter directement (para-virtualisation).
 - Les cartes réseaux physiques sont reliées aux différents LAN. 
 
@@ -101,7 +101,7 @@ Quand vous vous connectez via le port console, vous êtes sous NFVIS (user **adm
 
 ![bg opacity](images/gradient.jpg)
 
-# C8200 NFVIS configuration de base
+### C8200 NFVIS configuration de base
 
 ```ios
 nfvis(config)# system settings wan ip address 10.202.100.1 255.255.0.0
@@ -156,9 +156,10 @@ C'est une machine virtuelle qui se connecte au réseau via des bridges ou direct
 
 ![bg opacity](images/gradient.jpg)
 
-# Mapping d'interface
+#### Mapping d'interfaces
 
-![width:1000px height:600px ](images/mapping-reseaux-C8000.png)
+![width:1100px height:500px ](images/mapping-reseaux-C8000.png)
+
 
 ---
 
@@ -226,7 +227,8 @@ show vm_lifecycle opdata images
 show running-config vm_lifecycle
 ```
 
-Le 8000v est en mode autonome ou SD-WAN
+
+Le 8000v est en mode autonome ou SD-WAN.
 
 ```ios
 Router#sh ver | include mode
