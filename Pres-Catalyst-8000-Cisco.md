@@ -25,17 +25,25 @@ allowed_elements: h1,h2,h3,h4,h5
 
 ![bg opacity](images/gradient.jpg)
 
-## Network Functions Virtualization (NFV) 
+### Network Functions Virtualization (NFV) 
 
-- L'idée est de virtualiser des fonctions réseaux (Virtual Network Function = VNF ) des couches 4 à 7:  routeurs (comme un "route reflector" BGP) , pare-feux, équilibreurs de charges, antiddos... 
-  comme l'a fait la virtualisation des systèmes par le passé. 
-- Les avantages :  
-  - la VNF est indépendante  du matériel sous jacent. Matériels qui peuvent être "on premises" ou dans le CLOUD et qui offre du CPU et de la mémoire en abondance.
-  - On peut chaîner les VNF ensemble afin d'obtenir un super service. 
-  - Les VNF sont liées au SDN (Software Defined Networking) qui peut piloter les flux vers le meilleurs services.
-  - Technologies en phase avec le CLOUD avec transformation des coûts fixes (CAPEX) en (OPEX), et le paiement à la consommation. 
-  
-  
+- L'idée est de **virtualiser** des fonctions réseaux (Virtual Network Function = VNF ) des couches 4 à 7:  routeurs (comme un "route reflector" BGP) , pare-feux, équilibreurs de charges, antiddos...
+- Comme pour la *virtualisation des systèmes* on s'appuie sur des hyperviseurs (VMWare, KVM) fonctionnant sur des serveurs "standards" ou des boîtiers dédiés comme le Catalyst 8200. 
+   
+---
+
+<!-- backgroundImage: -->
+
+![bg opacity](images/gradient.jpg)
+
+### Les avantages du NVF
+
+- la VNF est indépendante  du matériel sous jacent. Matériels qui peuvent être "on premises" ou dans le CLOUD et qui offrent du CPU et de la mémoire en abondance.
+- On peut chaîner les VNF ensemble afin d'obtenir un super service. 
+- Les VNF sont liées au SDN (Software Defined Networking) qui peut optimiser les flux vers les VNF les plus appropriées.
+- C'est une technologies en phase avec le CLOUD avec transformation des coûts fixes (CAPEX) en (OPEX), et le paiement des ressources consommées.
+
+
 ---
 <!-- backgroundImage: -->
 
@@ -43,7 +51,7 @@ allowed_elements: h1,h2,h3,h4,h5
 
 ## NFVIS
 
-Cisco a une infrastructure dédiée pour les  **VNF** qui s'appelle **NFVI** (**N**etwork **F**unction **V**irtualization **I**nfrastructure) et un **S**ystème qui permet de la piloter :  **NFVIS**.
+Cisco a une infrastructure dédiée pour les  **VNF** qui s'appelle **NFVI** (**N**etwork **F**unction **V**irtualization **I**nfrastructure) et un **S**ystème qui permet de la mettre en oeuvre :  **NFVIS**.
 
 
 ---
@@ -74,13 +82,13 @@ source Cisco
 <!-- backgroundImage: -->
 
 ![bg opacity](images/gradient.jpg)
-# En fait
+## Ma définition
 
-C'est un **"<span style="color:red ">boitier de virtualisation"</span>** dont le système d'exploitation NFVIS basé sur Linux et son hyperviseur KVM. Dans les dernières versions de NFVIS, Kubernetes fait son apparition.
+C'est un **"<span style="color:red ">boitier de virtualisation"</span>** dont le système d'exploitation NFVIS est basé sur Linux et son hyperviseur KVM. Dans les dernières versions de NFVIS Docker et Kubernetes ont fait leur apparition.
 
 
-Quand vous vous connectez via le port console, vous êtes sous NFVIS 
-(user **admin** password par défaut **Admin123#**) et non pas dans l'OS d'un routeur !
+Quand vous vous connectez via le port console, vous êtes sous NFVIS et non pas dans l'OS d'un routeur !
+(user **admin** password par défaut **Admin123#** pou NFVIS) 
 
 ---
 
@@ -91,24 +99,33 @@ Quand vous vous connectez via le port console, vous êtes sous NFVIS
 
 Le catalyst 8200 s'appuie sur:
 
-- Un RedHat ( 7.2 à la date du )
+- Un RedHat ( 7.2 à la date de la création de cette présentation)
 - OpenVswitch
 - KVM , LibVirt, virsh ...
 
 ---
-## Pour la partie réseaux Hardware 
+## SRIOV et le catalyst 8200 
 
 <!-- backgroundImage: -->
 
 ![bg opacity](images/gradient.jpg)
 
 - Les cartes réseaux du catalyst 8200 supportent **SRVIOV** et permettent de connecter directement la VM à une carte réseau virtuelle émulée par la NIC physique.
-  SRIOV est bien adapté au trafic Nors Sud important ( VM vers Internet et vice versa)
-- Le catalyst 8200 support DPDK 
-  - DPDK permet de gérer les transferts du réseau en dehors de l'espace noyau (Kernel Space) donc sans le surcharger ni copier les paquets de l'espace utilisateur vers l'espace noyau.
-  - On évite aussi l'interruption du CPU par la carte réseau d'ou le gain en performance à très haut débit.
-  - DPDK nécessite du développement logiciel puisque la pile TCP/IP n'est pas utilisé.
-    Heureusement OpenVswitch a déjà fait ce travail et est capable d'utiliser DPDK pour vous. 
+  SRIOV est bien adapté au trafic **Nord-Sud** important ( VM vers Internet et vice versa)
+
+
+---
+
+
+### DPDK et le catalyst 8200 
+
+<!-- backgroundImage: -->
+
+![bg opacity](images/gradient.jpg)
+
+  - Le catalyst 8200 support DPDK 
+  - DPDK permet de gérer les transferts du réseau en dehors de l'espace noyau (Kernel Space) donc sans le surcharger ni copier les paquets de l'espace utilisateur vers l'espace noyau. On évite ainsi les milliers d'interruption  du CPU par la carte réseau d'ou le gain en performance à très haut débit.
+  - DPDK nécessite du développement logiciel puisque la pile TCP/IP n'est pas utilisé. Heureusement pour nous OpenVswitch a déjà fait ce travail et est capable d'utiliser DPDK. 
   - DPDK est bien adapté au trafic Est-Ouest (échanges entre VM), mais il consommera du CPU et de la mémoire.
 
 ---
@@ -124,7 +141,7 @@ Le catalyst 8200 s'appuie sur:
 
 ---
 
-#### OpenVswitch et DPDK
+#### OpenVswitch et DPDK - SRIOV
 
 <!-- backgroundImage: -->
 
@@ -170,11 +187,11 @@ Le catalyst 8200 s'appuie sur:
 
 ![bg opacity](images/gradient.jpg)
 
-# C8200
+## C8200
 
 - On définit des réseaux (wan-net, lan-net,mgmt-net...).
-- Les réseaux sont reliés à des bridges (wan-br, lan-br,mgmt-br..).
-- Les bridges sont reliés aux cartes réseaux physiques qui génèrent les "cartes SRIOV" auxquelles les VM peuvent se connecter directement (para-virtualisation).
+- Les réseaux sont reliés à des **bridges** (wan-br, lan-br,mgmt-br..).
+- Les bridges sont reliés aux cartes réseaux physiques qui génèrent les "cartes SRIOV" auxquelles les VM peuvent se connecter directement (para-virtualisation avec **virt-io**).
 - Les cartes réseaux physiques sont reliées aux différents LAN. 
 
 ---
@@ -183,7 +200,8 @@ Le catalyst 8200 s'appuie sur:
 
 ![bg opacity](images/gradient.jpg)
 
-### C8200 NFVIS configuration de base
+#### C8200 NFVIS configuration au démarrage via le port Console
+
 
 ```ios
 nfvis(config)# system settings mgmt ip address 10.202.100.1 255.255.0.0
@@ -191,11 +209,13 @@ nfvis(config)# system settings default-gw 10.202.255.254
 nfvis(config)# system settings hostname c8200-1
 nfvis(config)# end
 ```
-le bon mode pour travailler dans n'importe quelle salle
+ou utiliser le DHCP pour travailler dans n'importe quelle salle:
+
 ```ios
 nfvis(config)# system settings dhcp
 nfvis(config)# end
 ```
+
 On peut aussi configurer  l'interface  "wan". Les adresses sont automatiquement reportées dans la configuration du bridge correspondant (mgmt-br wan-br)  et vice-versa. 
 
 ---
@@ -228,8 +248,10 @@ bridges bridge cellular-br
  port int-CELL-1-0
  !
 ```
+
 ---
-## Pour les autres briddges 
+
+## Pour configurer les autres bridges 
 
 <!-- backgroundImage: -->
 
@@ -262,11 +284,11 @@ Possible completions:
 
 ![bg opacity](images/gradient.jpg)
 
-# Oui mais je veux mon routeur..
+# Oui mais je veux mon routeur!
 
-- Il est là sous forme d'une machine virtuelle. C'est le **"<span style="color:red "> C8000v </span>"**.
-C'est une machine virtuelle qui se connecte au réseau via des bridges ou directement via **SRIOV** (la même technologie que les serveurs DELL que vous connaissez) pour des raisons de performances.Le "boitier" est livré vide, il vous faudra "uploader" et installer l'image. 
-- L'OS de ce routeur est "**IOS XE**". C'est un kernel Linux qui supporte une application proche de l'IOS classique. L'intérêt est d'avoir les avantages de Linux (shell, utilitaires, processus indépendants..) et la syntaxe del'IOS classique. 
+- Don't worry ! Il est là sous forme d'une machine virtuelle. C'est le **"<span style="color:red "> C8000v </span>"**.
+C'est une machine virtuelle qui se connecte au réseau via des bridges ou directement via **SRIOV** (la même technologie que les serveurs DELL que vous connaissez et qui améliore les performances). Le "boitier" est livré vide, il vous faudra "uploader" et installer l'image. 
+- L'OS de ce routeur est "**IOS XE**". On y revient ensuite
 
 ---
 
@@ -276,6 +298,7 @@ C'est une machine virtuelle qui se connecte au réseau via des bridges ou direct
 
 #### Mapping d'interfaces
 
+Chaque interface du 8200 est mappée sur une carte physique, une VF SRIOV, ou une "TAP" raccrochée à un bridge.
 ![width:1100px height:500px ](images/mapping-reseaux-C8000.png)
 
 
@@ -290,18 +313,46 @@ C'est une machine virtuelle qui se connecte au réseau via des bridges ou direct
 ![bg opacity](images/gradient.jpg)
 
 
-### Import d'une image C8000v avec des format iso, ova ,qcow2 ..
+####  Import d'une image C8000v (qcow2, ova...) et des "saveurs" de VM en fonction de vos besoins.
 
-![width:1100px height:500px ](images/uploaderuneimage.png)
+![width:1100px height:500px ](images/image_uploadee1.png)
 
 ---
 <!-- backgroundImage: -->
 
 ![bg opacity](images/gradient.jpg)
 
-### Création des Machines virtuelles depuis une iso 
+### Création d'un bootstrap pour la création de la VM
 
+- On peut passer un fichier de bootstrap pour configurer la VM lors de sa création:
+- On dispose de deux méthodes soit avec un fichier txt ou avec un fichier xml:
+Voir:
+https://www.cisco.com/c/en/us/td/docs/routers/C8000V/Configuration/c8000v-installation-configuration-guide/day0-bootstrap-configuration.html
 
+---
+
+<!-- backgroundImage: -->
+
+![bg opacity](images/gradient.jpg)
+
+###  Lister les images uploadées pour créer les VM
+
+```ios
+c8200-jmp# show system file-list disk local
+...
+107    Fedora-Cloud-Base-34-1.2.x86_64.qcow2     /data/intdatastore/uploads       250M   VM Package  
+108    isrv-universalk9.17.03.03.qcow2           /data/intdatastore/uploads       1.5G   VM Package      
+109    c8000v-universalk9_16G_serial.17.06.01a.  /data/intdatastore/uploads       1.5G   VM Package     
+       tar.gz
+110    nfvisvmpackagingtool.tar                  /data/intdatastore/uploads/vmpa  150K   VM Packaging   
+```                                                 
+
+---
+<!-- backgroundImage: -->
+
+![bg opacity](images/gradient.jpg)
+
+### Exemple à partir d'une config txt et d'une ISO
 ```
 hostname ultra-ios_cfg
 license smart enable
@@ -320,10 +371,27 @@ exit
 ```bash
 mkisofs -l -o c8000v_config.iso . < iosxe.txt
 ```
+
 ---
 <!-- backgroundImage: -->
 
 ![bg opacity](images/gradient.jpg)
+
+### Exemple de fichier XML de bootstrap
+
+![width:1100px height:500px ](images/bootstrap-c8000v.png)
+
+
+---
+
+<!-- backgroundImage: -->
+
+![bg opacity](images/gradient.jpg)
+
+## Creation de la VM à partir de l'image
+
+
+![width:1100px height:500px ](images/conf_vm.png)
 ---
 
 <!-- backgroundImage: -->
@@ -351,13 +419,36 @@ CTRL shift 5 pour sortir de la console KVM
 
 ![bg opacity](images/gradient.jpg)
 
-## Connexions aux cartes SRIOV
+#### Connexion du routeur C8000V directe de la VM au réseau physique via une "carte SRIOV" 
 
-![width:1000px height:600px ](images/Routeur-sriov.png)
-
+![width:1000px height:600px ](images/C8000v-sriov-branché.png)
 
 ---
 
+<!-- backgroundImage: -->
+
+![bg opacity](images/gradient.jpg)
+
+##### Connexion du routeur C8000V à un bridge connecté au réseau physique
+
+Il faut:
+- Un bridge avec une adresse IP dans le réseau de la VM
+- Sur la VM une interface avec une adresse IP dans le même réseau que le bridge ainsi qu'une route par défaut vers l'IP du bridge.
+- Le trafic est routé vers internet par NFVIS via le bridge WAN.
+  Existe-t-il une meilleure solution ? 
+  
+---
+
+<!-- backgroundImage: -->
+
+![bg opacity](images/gradient.jpg)
+
+##### Exemple de configuration pour une VM bridgée
+
+
+![width:1000px height:600px ](images/c800v2-brige-conf-all.png)
+
+---
 <!-- backgroundImage: -->
 
 ![bg opacity](images/gradient.jpg)
@@ -374,6 +465,7 @@ show system networks
 show system ports
 shown pnic # voir l'état des cartes physiques
 show pnic-detail
+show vm_lifecycle vnic_stats
 ```
 
 ---
@@ -391,6 +483,7 @@ show log
 show log [fichiers] # Attention affichage long sur une console
 support show arp
 support show route
+...
 
 ```
 
@@ -424,14 +517,7 @@ State:          running
 CPU(s):         2
 CPU time:       3825.0s
 Max memory:     4194304 KiB
-Used memory:    4194304 KiB
-Persistent:     yes
-Autostart:      disable
-Managed save:   no
-Security model: selinux
-Security DOI:   0
-Security label: system_u:system_r:svirt_t:s0:c429,c958 (permissive)
-
+..
 ```
 
 ---
@@ -450,48 +536,73 @@ int-mgmt-net-br
 lan-br
 wan-br
 wan2-br
-c8200-jmp#
+c8200-jmp#support ovs vsctl list interface wan-br
+...
+```
 
 ---
+
 
 <!-- backgroundImage: -->
 
 ![bg opacity](images/gradient.jpg)
 
-#  Upgrade NFVIS
+####  Gérer les images et la configuration de la VM
 
-Charger le fichier d'upgrade (*.nfvispkg) depuis l'interface web (menu operation/upgrade)
-
-```iso
-show system upgrade reg-info
-conf t
-    system upgrade reg-info name Cisco\_NFVIS\_Upgrade-4.6.2-FC3.nfvispkg
+```ios
+c8200-jmp# show vm_lifecycle opdata images
+vm_lifecycle opdata images image c8000v-universalk9_16G_serial.17.06.01a.tar.gz
+ image_id 450a12e2-cd41-4fc6-9567-a3608b48e324
+ public   true
+ state    IMAGE_ACTIVE_STATE
+ property remove_src_on_completion
+  value [ false ]
+ property interface_hot_delete
+  value [ true ]
+ property bootstrap_file
 ```
+ 
 ---
+
 
 <!-- backgroundImage: -->
 
 ![bg opacity](images/gradient.jpg)
 
-#  Gérer les images et la configuration de la VM
+
+
+###  Listez les VM 
 
 ```ios
-show vm_lifecycle opdata images
-show running-config vm_lifecycle
-```
-
-# Listez les VM 
-
-```ios
-c8200-jmp# show system deployments
+c8200-jmp# show system deployments 
 NAME     ID  STATE    TYPE
 ----------------------------
 ROUTER1  1   running  vm
 ```
+---
 
 
 ---
 
+---
+<!-- backgroundImage: -->
+### Voir le rattachement de la VM au bridge
+
+![bg opacity](images/gradient.jpg)
+
+```ios
+c8200-jmp# show vm_lifecycle deployments all
+
+Name: C8000v1
+Deployment Name : C8000v1
+...
+
+NICID  VNIC   NETWORK      IP        MAC-ADDRESS        MODEL    PORT-FORWARD
+--------------------------------------------------------------------------------------
+0      vnic0  int-mgmt-net 10.20.0.2 cc:db:93:a5:5b:a8  virtio   [ssh 2122 None]
+1      vnic1  wan2-net     -         52:54:00:7f:e3:d9  virtio
+```
+---
 <!-- backgroundImage: -->
 
 ![bg opacity](images/gradient.jpg)
@@ -514,11 +625,11 @@ C8001>
 
 # IOS-XE
 
-Le routeur C8000v est un router dont le système d'exploitation est IOX-XE.
+Le routeur C8000v est un routeur dont le système d'exploitation est IOX-XE:
 
-- IOS-XE repose sous Linux et à ce titre est capable de faire "tourner" plusieurs processus au contraire du très monolithique IOS
+- IOS-XE repose sous Linux et à ce titre est capable de faire "tourner" plusieurs processus au contraire du très monolithique IOS.
 - Néanmoins il est très proche de la syntaxe d'IOS afin de ne pas perdre les admin réseaux...
-- Il s'appuie sur les CPU et la mémoire de l'hôte et est donc bien adapté au mode virtualisé et donc au CLOUD.  
+- Il s'appuie sur les CPU et la mémoire de l'hôte et est donc bien adapté au mode virtualisé et au CLOUD.  
 
 ---
 <!-- backgroundImage: -->
@@ -550,46 +661,6 @@ Device(config)# username cisco privilege 15 secret cisco
 Device(config)# ip ssh time-out 120
 Device(config)# ip ssh authentication-retries 3
 Device(config)# ip scp server enable
-```
----
-
-<!-- backgroundImage: -->
-
-![bg opacity](images/gradient.jpg)
-
-#  Correspondances des cartes Physiques et Virtuelles
-
-```ios
-interfaces interface 1
-model virtio
-network GE0-0-SRIOV-1
-!
-interfaces interface 2
-model virtio
-network GE0-1-SRIOV-1
-!
-...
-```
-
----
-
-<!-- backgroundImage: -->
-
-![bg opacity](images/gradient.jpg)
-
-#  Correspondances des cartes Physiques et Virtuelles
-
-```ios
-interfaces interface 1
-model virtio
-network GE0-0-SRIOV-1
-nfvis# show system deployments
-NAME ID STATE TYPE
-ROUTER1 7 running vm
-
-nfvis# vmConsole ROUTER1
-Connected to domain ROUTER1
-Escape character is ^\]
 ```
 
 ---
