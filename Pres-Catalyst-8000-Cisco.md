@@ -95,7 +95,7 @@ Quand vous vous connectez via le port console, vous êtes sous NFVIS et non pas 
 <!-- backgroundImage: -->
 
 ![bg opacity](images/gradient.jpg)
-## De l'open source sytèmes en dessous du Catalyst
+## De l'open source sous le capot du Catalyst
 
 Le catalyst 8200 s'appuie sur:
 
