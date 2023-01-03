@@ -38,7 +38,7 @@ allowed_elements: h1,h2,h3,h4,h5
 
 ### Les avantages du NVF
 
-- la VNF est indépendante  du matériel sous jacent. Matériels qui peuvent être "on premises" ou dans le CLOUD et qui offrent du CPU et de la mémoire en abondance.
+- la VNF est indépendante  du matériel sous jacent. Matériels qui peuvent être "on premises" ou dans le CLOUD et qui offrent du CPU et de la mémoire "en abondance".
 - On peut chaîner les VNF ensemble afin d'obtenir un super service. 
 - Les VNF sont liées au SDN (Software Defined Networking) qui peut optimiser les flux vers les VNF les plus appropriées.
 - C'est une technologies en phase avec le CLOUD avec transformation des coûts fixes (CAPEX) en (OPEX), et le paiement des ressources consommées.
@@ -123,10 +123,10 @@ Le catalyst 8200 s'appuie sur:
 
 ![bg opacity](images/gradient.jpg)
 
-  - Le catalyst 8200 support DPDK 
-  - DPDK permet de gérer les transferts du réseau en dehors de l'espace noyau (Kernel Space) donc sans le surcharger ni copier les paquets de l'espace utilisateur vers l'espace noyau. On évite ainsi les milliers d'interruption  du CPU par la carte réseau d'ou le gain en performance à très haut débit.
-  - DPDK nécessite du développement logiciel puisque la pile TCP/IP n'est pas utilisé. Heureusement pour nous OpenVswitch a déjà fait ce travail et est capable d'utiliser DPDK. 
-  - DPDK est bien adapté au trafic Est-Ouest (échanges entre VM), mais il consommera du CPU et de la mémoire.
+  - Le catalyst 8200 support **DPDK**. 
+  - DPDK permet de gérer les transferts du réseau en dehors de l'espace noyau (Kernel Space). Il ne copie donc pas les paquets de l'espace utilisateur vers l'espace noyau et on évite aussi les milliers d'interruptions faites par la carte réseau au CPU d'ou le gain en performance à très haut débit.
+  - DPDK nécessite du développement logiciel puisque la pile TCP/IP n'est pas utilisée. Heureusement pour nous OpenVswitch a déjà fait ce travail et est capable d'utiliser DPDK. 
+  - DPDK est bien adapté au trafic **Est-Ouest** (échanges entre VM), mais il consommera du CPU et de la mémoire.
 
 ---
 
@@ -191,7 +191,8 @@ Le catalyst 8200 s'appuie sur:
 
 - On définit des réseaux (wan-net, lan-net,mgmt-net...).
 - Les réseaux sont reliés à des **bridges** (wan-br, lan-br,mgmt-br..).
-- Les bridges sont reliés aux cartes réseaux physiques qui génèrent les "cartes SRIOV" auxquelles les VM peuvent se connecter directement (para-virtualisation avec **virt-io**).
+- Les bridges sont reliés aux "Virtual Functions"  **SRIOV**.
+  (Les VM peuvent aussi se connecter directement aux cartes SRIOV).
 - Les cartes réseaux physiques sont reliées aux différents LAN. 
 
 ---
@@ -209,7 +210,7 @@ nfvis(config)# system settings default-gw 10.202.255.254
 nfvis(config)# system settings hostname c8200-1
 nfvis(config)# end
 ```
-ou utiliser le DHCP pour travailler dans n'importe quelle salle:
+ou utilisera le DHCP pour travailler dans n'importe quelle salle:
 
 ```ios
 nfvis(config)# system settings dhcp
@@ -224,7 +225,7 @@ On peut aussi configurer  l'interface  "wan". Les adresses sont automatiquement 
 
 ![bg opacity](images/gradient.jpg)
 
-## Les bridges par défaut (on peut en créer d'autres...)
+### Les bridges par défaut 
 
 ```ios
 show running-config bridges
@@ -251,7 +252,7 @@ bridges bridge cellular-br
 
 ---
 
-## Pour configurer les autres bridges 
+## Créer ses propres bridges 
 
 <!-- backgroundImage: -->
 
@@ -313,7 +314,7 @@ Chaque interface du 8200 est mappée sur une carte physique, une VF SRIOV, ou un
 ![bg opacity](images/gradient.jpg)
 
 
-####  Import d'une image C8000v (qcow2, ova...) et des "saveurs" de VM en fonction de vos besoins.
+####  Import d'une image C8000v (qcow2, ova...) et de ses "saveurs" 
 
 ![width:1100px height:500px ](images/image_uploadee1.png)
 
@@ -322,7 +323,7 @@ Chaque interface du 8200 est mappée sur une carte physique, une VF SRIOV, ou un
 
 ![bg opacity](images/gradient.jpg)
 
-### Création d'un bootstrap pour la création de la VM
+### Création d'un "bootstrap"  pour initialiser la VM
 
 - On peut passer un fichier de bootstrap pour configurer la VM lors de sa création:
 - On dispose de deux méthodes soit avec un fichier txt ou avec un fichier xml:
@@ -432,10 +433,10 @@ CTRL shift 5 pour sortir de la console KVM
 ##### Connexion du routeur C8000V à un bridge connecté au réseau physique
 
 Il faut:
-- Un bridge avec une adresse IP dans le réseau de la VM
+- Un bridge avec une adresse IP dans le réseau de la VM.
 - Sur la VM une interface avec une adresse IP dans le même réseau que le bridge ainsi qu'une route par défaut vers l'IP du bridge.
 - Le trafic est routé vers internet par NFVIS via le bridge WAN.
-  Existe-t-il une meilleure solution ? 
+  Existe-t-il une meilleure solution ?
   
 ---
 
@@ -475,7 +476,7 @@ show vm_lifecycle vnic_stats
 ![bg opacity](images/gradient.jpg)
 
 
-##  Commandes Systèmes "mappées" sur  Linux
+##  Commandes systèmes "mappées" sur  Linux
 
 ```ios
 ssh admin@[ip-mgmt]
@@ -579,11 +580,16 @@ NAME     ID  STATE    TYPE
 ----------------------------
 ROUTER1  1   running  vm
 ```
----
-
 
 ---
 
+<!-- backgroundImage: -->
+
+![bg opacity](images/gradient.jpg)
+
+#### IOS XE web interface 
+
+![width:1000px height:600px ](images/c8000v-web.png)
 ---
 <!-- backgroundImage: -->
 ### Voir le rattachement de la VM au bridge
