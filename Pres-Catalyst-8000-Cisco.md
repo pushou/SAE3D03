@@ -213,7 +213,7 @@ nfvis(config)# end
 ou utilisera le DHCP pour travailler dans n'importe quelle salle:
 
 ```ios
-nfvis(config)# system settings dhcp
+nfvis(config)# system settings mgmt dhcp
 nfvis(config)# end
 ```
 
