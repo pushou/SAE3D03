@@ -80,8 +80,8 @@ C'est un **"<span style="color:red ">boitier de virtualisation"</span>** dont le
 
 
 Quand vous vous connectez via le port console, vous êtes sous NFVIS 
-(user **admin** password par défaut **Admin123#**) et non pas dans l'OS d'un routeur !
-
+et non pas dans l'OS d'un routeur !
+(user **admin** password par défaut **Admin123#**)
 ---
 
 <!-- backgroundImage: -->
@@ -91,7 +91,7 @@ Quand vous vous connectez via le port console, vous êtes sous NFVIS
 
 Le catalyst 8200 s'appuie sur:
 
-- Un RedHat ( 7.2 à la date du )
+- Un OS RedHat ( 7.2 à la date du )
 - OpenVswitch
 - KVM , LibVirt, virsh ...
 
