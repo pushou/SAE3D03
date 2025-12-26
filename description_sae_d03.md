@@ -17,7 +17,8 @@ Le schéma à réaliser est le suivant (vous êtes responsable d'un Catalyst 820
 Il vous est demandé d'automatiser le déploiement de la solution avec Python (Nornir, Netmiko, napalm...) ainsi que le déploiement des machines virtuelles et des packages necessaires (bash, zsh...)
 
 
-![](drawio_assets/schema1-sae.png
+![](drawio_assets/schema1-sae.png)
+
 
 ## Livrables attendus:
 
