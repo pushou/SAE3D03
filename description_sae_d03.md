@@ -29,7 +29,7 @@ Pour les techniciens les plus avancées :
 - Une transposition de ce que vous aurez appris sur le CSR1000v via la NetAcad de Cisco au C8000v sur la partie gestion de configuration. Il faudra vérifier que vous pouvez l'interroger via les protocoles Netconf et Restconf.
 
 ## ATTENTION
-- LA PERTE du MOT de PASSE sur le Catalyst 8000  sera catastrophique pour votre évaluation prodessionnelle!
+- LA PERTE du MOT de PASSE sur le Catalyst 8000  sera catastrophique pour votre évaluation professionnelle ! Un technicien doit être capable de noter un mot de passe et de tracer ses actions.
 - Vous remettrez avant la fin de la SAE le Routeur dans son état initial et vous le ferez valider par votre responsable.
 
   
