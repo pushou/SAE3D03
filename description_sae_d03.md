@@ -27,8 +27,11 @@ Il vous est demandé d'automatiser le déploiement de la solution avec Python (N
 - La validation réussie de votre maquette au plus tôt par votre chef (Le temps de mise en place de votre maquette influera sur votre évaluation de fin d'année pour votre augmentation de début d'année)
 Pour les techniciens les plus avancées :
 - Une transposition de ce que vous aurez appris sur le CSR1000v via la NetAcad de Cisco au C8000v sur la partie gestion de configuration. Il faudra vérifier que vous pouvez l'interroger via les protocoles Netconf et Restconf.
-- Vous ferez la mise à jour de votre version de NVFIS sur votre Catalyst. Attention l'upgrade n'est pas toujours sans soucis: respectez bien le palier d'incrémentation de deux versions maximum.
-  Qui casse répare !
+
+## ATTENTION
+- LA PERTE du MOT de PASSE sur le Catalyst 8000  sera catastrophique pour votre évaluation prodessionnelle!
+- Vous remettrez avant la fin de la SAE le Routeur dans son état initial et vous le ferez valider par votre responsable.
+
   
 
   
