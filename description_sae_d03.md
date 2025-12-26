@@ -14,7 +14,7 @@ Vous travaillerez donc individuellement.
 Votre PC vous servira de station de travail pour vous connecter via SSH  à vos routeurs et tester que vous arrivez bien jusqu'au PC du chef et réciproquement.
 
 Le schéma à réaliser est le suivant (vous êtes responsable d'un Catalyst 8200):
-
+Il vous est demandé d'automatiser le déploiement de la solution avec Python (Nornir, Netmiko, napalm...)
 
 ![](drawio_assets/sch%C3%A9ma1-sae.png)
 
